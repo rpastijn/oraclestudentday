@@ -2,6 +2,7 @@
 
 # Lab 1: Create an Arm based Kubernetes Cluster
 
+## Introduction
 
 Kubernetes, also known as K8s, is an open-source system for automating the deployment, scaling, and management of containerized applications. In order to start using Kubernetes on your private systems, you would need to download the installation software, the tools for management software, and decide on a suitable setup.
 
@@ -9,7 +10,7 @@ Cloud providers, like Oracle, offer out-of-the-box tested and production ready d
 
 Oracle OCI Cloud offers various CPU types from Intel, AMD and Arm in general and for running services like the Oracle Kubernetes Service. During this hands-on example, we will use the Arm CPU type to create a new 3 node Kubernetes cluster.
 
-## Using the K8s Creation Wizard
+## Run the K8s Creation Wizard
 
 ### Step 1: Navigate to the K8s console page
 Although you could define all services (like network, compute and storage) manually, the OCI Cloud has lots of wizards available for quick creation of services. In this example, we will use the OKE (Oracle Kubernetes Engine) Wizard.
@@ -106,11 +107,11 @@ Wait until the cluster has been initiated by looking at the color of the service
 
 This does not automatically mean that all nodes are available; some of them might still be booting. Only the service has started, you might need to wait a bit before the underlying OS is available.
 
-## Lab 2: Control your cluster using CloudShell
+## Control your cluster using CloudShell
 
 The easiest way to control your cluster is using a build-in terminal system in OCI. When you start a so-called cloud shell, a small image is started in the background which will give you a linux command prompt. A lot of tools are pre-installed in this shell like the tools to control your K8s cluster. The only thing needed is the configuration file with the details on how to access your cluster.
 
-### Step 1: Setup Cloud Shell
+### Step 5: Setup Cloud Shell
 
 - Click on the 'Access Cluster' button in your Cluster Console page
 
@@ -128,7 +129,7 @@ The easiest way to control your cluster is using a build-in terminal system in O
 
 You have just created a *kubeconfig* file. Kubernetes clients like `kubectl` can work with a configuration file that facilitates access to the cluster. Such a file is generally called a *kubeconfig* file. Typically, this configuration file resides in *~/.kube*. A single configuration file can contain access configuration for multiple clusters.
 
-### Step 2: Retrieve information using kubectl
+### Step 6: Retrieve information using kubectl
 
 The Kubectl application is pre-installed in the Oracle Cloud Shell for your user. Let's check if we can interact with the cluster and see the cluster nodes.
 
