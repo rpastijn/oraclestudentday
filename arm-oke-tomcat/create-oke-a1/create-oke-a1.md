@@ -125,7 +125,9 @@ The easiest way to control your cluster is using a build-in terminal system in O
 - Copy the command from step 2 in your screen. The easiest is to click on the **Copy** link at the end of the line
 - Click in your Cloud Shell and paste the command you just copied. After pressing ENTER you should see the following confirmation
 
-     New config written to the Kubeconfig file /home/name/.kube/config
+    ````
+    New config written to the Kubeconfig file /home/name/.kube/config
+    ````   
 
 You have just created a *kubeconfig* file. Kubernetes clients like `kubectl` can work with a configuration file that facilitates access to the cluster. Such a file is generally called a *kubeconfig* file. Typically, this configuration file resides in *~/.kube*. A single configuration file can contain access configuration for multiple clusters.
 
