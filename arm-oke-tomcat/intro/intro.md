@@ -25,7 +25,7 @@ The Ampere A1 compute platform based on Ampere Altra CPUs represent a generation
 
 1. An Oracle Cloud account
 
-Optionally:
+Nice to have but not required:
 
 1. [Familiarity with OCI console](https://docs.us-phoenix-1.oraclecloud.com/Content/GSG/Concepts/console.htm)
 1. [Overview of Networking](https://docs.us-phoenix-1.oraclecloud.com/Content/Network/Concepts/overview.htm)
@@ -36,5 +36,5 @@ Optionally:
 
 * **Author** - Jeevan Joseph
 * **Contributors** -  Orlando Gentil, Jeevan Joseph
-* **Adopted for Oracle Student Day - Robert Pastijn
+* **Adopted for Oracle Student Day** - Robert Pastijn
 * **Last Updated By/Date** - Robert Pastijn, October 2023

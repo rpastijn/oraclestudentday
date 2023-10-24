@@ -10,9 +10,9 @@ Cloud providers, like Oracle, offer out-of-the-box tested and production ready d
 
 Oracle OCI Cloud offers various CPU types from Intel, AMD and Arm in general and for running services like the Oracle Kubernetes Service. During this hands-on example, we will use the Arm CPU type to create a new 3 node Kubernetes cluster.
 
-## Run the K8s Creation Wizard
+## Step 1: Run the K8s Creation Wizard
 
-### Step 1: Navigate to the K8s console page
+### 1.1 Navigate to the K8s console page
 Although you could define all services (like network, compute and storage) manually, the OCI Cloud has lots of wizards available for quick creation of services. In this example, we will use the OKE (Oracle Kubernetes Engine) Wizard.
 
 1. On the left top of your screen, select the stacked (or hamburger menu). It is located left from the Oracle logo
@@ -28,7 +28,7 @@ Before we will create a new cluster, make sure the following items are correct, 
 	- Make sure you are in the correct **compartment**
 	- The compartment can be changed using the drop-down box on the left side of your screen
 
-### Step 2 - Start the Creation Wizard
+### 1.2 Start the Creation Wizard
 
 Once you are 100% sure you have selected the correct region and compartment, click on the **create cluster** button on your screen. The following Wizard will appear:
 
@@ -36,14 +36,14 @@ Once you are 100% sure you have selected the correct region and compartment, cli
 
 In this wizard, a number of things will be done automatically:
 
-- Create a Virtual Cloud Network (including required gateways to the internet
+- Create a Virtual Cloud Network (including required gateways to the internet)
 - Create a new Kubernetes Cluster
 - Add worker-nodes (compute instances to run the containers)
 - Configure the node pool for high availability of the containers
 
 Please click on **'Submit'** to continue  
 
-### Step 3 - Fill in the required values
+### 1.3 Fill in the required values
 
 Please fill in the following values:
 
@@ -87,7 +87,7 @@ In the Shape and Image section, we specify how many compute VMs will be part of 
 
 When all is correct, please click on the **'Next'** button at the bottom of the page.
 
-### Step 4: Review of the values
+### 1.4 Review of the values
 
 The last page will give you an overview of all the settings. If you are OK with them, please click **'Create Cluster'** to start running the wizard and building the cluster.
 
@@ -97,7 +97,7 @@ The initiation of the setup will only take a few seconds. After clicking the Cre
 
 When you see everything 'green', click on **'Close'** to continue.
 
-### Step 4: Checking the console page
+### 1.5 Checking the console page
 
 After the Wizard page has closed, you should be redirected to the Cluster Console page:
 
@@ -107,11 +107,11 @@ Wait until the cluster has been initiated by looking at the color of the service
 
 This does not automatically mean that all nodes are available; some of them might still be booting. Only the service has started, you might need to wait a bit before the underlying OS is available.
 
-## Control your cluster using CloudShell
+## Step 2: Control your cluster using CloudShell
 
 The easiest way to control your cluster is using a build-in terminal system in OCI. When you start a so-called cloud shell, a small image is started in the background which will give you a linux command prompt. A lot of tools are pre-installed in this shell like the tools to control your K8s cluster. The only thing needed is the configuration file with the details on how to access your cluster.
 
-### Step 5: Setup Cloud Shell
+### 2.1 Setup Cloud Shell
 
 - Click on the 'Access Cluster' button in your Cluster Console page
 
@@ -125,13 +125,13 @@ The easiest way to control your cluster is using a build-in terminal system in O
 - Copy the command from step 2 in your screen. The easiest is to click on the **Copy** link at the end of the line
 - Click in your Cloud Shell and paste the command you just copied. After pressing ENTER you should see the following confirmation
 
-    ````
+    ```
     New config written to the Kubeconfig file /home/name/.kube/config
-    ````   
+    ```   
 
 You have just created a *kubeconfig* file. Kubernetes clients like `kubectl` can work with a configuration file that facilitates access to the cluster. Such a file is generally called a *kubeconfig* file. Typically, this configuration file resides in *~/.kube*. A single configuration file can contain access configuration for multiple clusters.
 
-### Step 6: Retrieve information using kubectl
+### 2.2 Retrieve information using kubectl
 
 The Kubectl application is pre-installed in the Oracle Cloud Shell for your user. Let's check if we can interact with the cluster and see the cluster nodes.
 
@@ -143,15 +143,22 @@ The Kubectl application is pre-installed in the Oracle Cloud Shell for your user
 
 - Paste the command in the Cloud Shell and press enter. You should see output similar to the following example, depending on the number of nodes in the cluster. Note the kernel version shows that we are running Oracle Linux for `aarch64` (Arm 64-bit) architecture. 
 
-    ````
+    ```
     NAME          STATUS  ROLES  AGE  VERSION  INTERNAL-IP  EXTERNAL-IP  OS-IMAGE                  KERNEL-VERSION
     10.0.10.131   Ready   node   15m  v1.27.2  10.0.10.131  <none>       Oracle Linux Server 8.8   5.15.0-104.119.4.2.el8uek.aarch64
     10.0.10.150   Ready   node   15m  v1.27.2  10.0.10.150  <none>       Oracle Linux Server 8.8   5.15.0-104.119.4.2.el8uek.aarch64
     10.0.10.240   Ready   node   16m  v1.27.2  10.0.10.240  <none>       Oracle Linux Server 8.8   5.15.0-104.119.4.2.el8uek.aarch64
-    ````
+    ```
 
 Note: If the STATUS is not READY yet, wait a couple of minutes for the setup processes to finish.
 
 Now that you have a fully functioning Kubernetes cluster and have set up the tools to interact with it, you can deploy any Kubernetes workload to it. 
 
-Please continue to the next section of this workshop.
+Please continue to the next lab of this workshop.
+
+## Acknowledgements
+
+- **Initial Author** - Jeevan Joseph
+- **Initial Contributors** - Orlando Gentil, Jeevan Joseph
+- **Adopted and expanded for Oracle Student Day** - Robert Pastijn
+- **Last Updated By/Date** - Robert Pastijn, October 2023
