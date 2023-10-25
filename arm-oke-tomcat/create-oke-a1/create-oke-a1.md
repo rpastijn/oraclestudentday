@@ -137,13 +137,13 @@ The Kubectl application is pre-installed in the Oracle Cloud Shell for your user
 
 - Copy the following command to Cloud Shell and run it.
    
-    ```
+    ``` text
     $ <copy>kubectl get nodes -o wide</copy>
     ```
 
 - Paste the command in the Cloud Shell and press enter. You should see output similar to the following example, depending on the number of nodes in the cluster. Note the kernel version shows that we are running Oracle Linux for `aarch64` (Arm 64-bit) architecture. 
 
-    ```
+    ``` text
     NAME          STATUS  ROLES  AGE  VERSION  INTERNAL-IP  EXTERNAL-IP  OS-IMAGE                  KERNEL-VERSION
     10.0.10.131   Ready   node   15m  v1.27.2  10.0.10.131  <none>       Oracle Linux Server 8.8   5.15.0-104.119.4.2.el8uek.aarch64
     10.0.10.150   Ready   node   15m  v1.27.2  10.0.10.150  <none>       Oracle Linux Server 8.8   5.15.0-104.119.4.2.el8uek.aarch64

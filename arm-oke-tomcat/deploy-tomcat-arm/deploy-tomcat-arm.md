@@ -18,7 +18,7 @@ Copy the following command and execute it in your cloud shell:
   
 You should see something similar to the following output:
 
-    ```
+    ``` text
     rp@cloudshell:~ (eu-amsterdam-1)$ wget https://oraclepartnersas.objectstorage.eu-amsterdam-1.oci.customer-oci.com/p/nMeT3CgGmIHPo0bFoRaVQmK6gGdY--cTpS5cvgZC38zhVEU6g4XCzPMk1sjE3uc0/n/oraclepartnersas/b/OracleStudentDay08Nov/o/tomcat.yaml
 
     --2023-10-23 13:49:45--  https://oraclepartnersas.objectstorage.eu-amsterdam-1.oci.customer-oci.com/p/nMeT3CgGmIHPo0bFoRaVQmK6gGdY--cTpS5cvgZC38zhVEU6g4XCzPMk1sjE3uc0/n/oraclepartnersas/b/OracleStudentDay08Nov/o/tomcat.yaml
