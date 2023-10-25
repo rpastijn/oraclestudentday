@@ -1,4 +1,4 @@
-# Lab 2: Seamless deployments to your Kubernetes cluster
+# Lab 3: Seamless deployments to your Kubernetes cluster
 
 ## Introduction
 

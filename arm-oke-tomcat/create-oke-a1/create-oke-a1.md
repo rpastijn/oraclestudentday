@@ -1,6 +1,6 @@
 
 
-# Lab 1: Create an Arm based Kubernetes Cluster
+# Lab 2: Create an Arm based Kubernetes Cluster
 
 ## Introduction
 

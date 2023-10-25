@@ -11,12 +11,12 @@
       "filename": "../../get-started/cloud-login-direct-oraclepartnersas.md"
     },
     {
-      "title": "Lab 1: Create an Arm based Kubernetes cluster",
+      "title": "Lab 2: Create an Arm based Kubernetes cluster",
       "description": "The Introduction is always second. The title and contents menu title match for the Introduction.",
       "filename": "../../create-oke-a1/create-oke-a1.md"
     },
     {
-      "title": "Lab 2: Seamless deployments to your Kubernetes cluster",
+      "title": "Lab 3: Seamless deployments to your Kubernetes cluster",
       "description": "The Introduction is always second. The title and contents menu title match for the Introduction.",
       "filename": "../../deploy-tomcat-arm/deploy-tomcat-arm.md"
     },
