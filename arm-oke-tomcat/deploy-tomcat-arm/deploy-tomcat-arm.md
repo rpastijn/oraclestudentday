@@ -12,83 +12,84 @@ A manifest file tells the tool what to download and how to setup whatever you wa
 
 Copy the following command and execute it in your cloud shell:
 
-    ```
-    <copy>wget https://oraclepartnersas.objectstorage.eu-amsterdam-1.oci.customer-oci.com/p/nMeT3CgGmIHPo0bFoRaVQmK6gGdY--cTpS5cvgZC38zhVEU6g4XCzPMk1sjE3uc0/n/oraclepartnersas/b/OracleStudentDay08Nov/o/tomcat.yaml</copy>
-    ```
+``` text
+<copy>wget https://oraclepartnersas.objectstorage.eu-amsterdam-1.oci.customer-oci.com/p/nMeT3CgGmIHPo0bFoRaVQmK6gGdY--cTpS5cvgZC38zhVEU6g4XCzPMk1sjE3uc0/n/oraclepartnersas/b/OracleStudentDay08Nov/o/tomcat.yaml</copy>
+```
   
 You should see something similar to the following output:
 
-    ``` text
-    rp@cloudshell:~ (eu-amsterdam-1)$ wget https://oraclepartnersas.objectstorage.eu-amsterdam-1.oci.customer-oci.com/p/nMeT3CgGmIHPo0bFoRaVQmK6gGdY--cTpS5cvgZC38zhVEU6g4XCzPMk1sjE3uc0/n/oraclepartnersas/b/OracleStudentDay08Nov/o/tomcat.yaml
+``` text
+rp@cloudshell:~ (eu-amsterdam-1)$ wget https://oraclepartnersas.objectstorage.eu-amsterdam-1.oci.customer-oci.com/p/nMeT3CgGmIHPo0bFoRaVQmK6gGdY--cTpS5cvgZC38zhVEU6g4XCzPMk1sjE3uc0/n/oraclepartnersas/b/OracleStudentDay08Nov/o/tomcat.yaml
 
-    --2023-10-23 13:49:45--  https://oraclepartnersas.objectstorage.eu-amsterdam-1.oci.customer-oci.com/p/nMeT3CgGmIHPo0bFoRaVQmK6gGdY--cTpS5cvgZC38zhVEU6g4XCzPMk1sjE3uc0/n/oraclepartnersas/b/OracleStudentDay08Nov/o/tomcat.yaml
-    Resolving oraclepartnersas.objectstorage.eu-amsterdam-1.oci.customer-oci.com (oraclepartnersas.objectstorage.eu-amsterdam-1.oci.customer-oci.com)... 134.70.104.1
-    Connecting to oraclepartnersas.objectstorage.eu-amsterdam-1.oci.customer-oci.com (oraclepartnersas.objectstorage.eu-amsterdam-1.oci.customer-oci.com)|134.70.104.1|:443... connected.
-    HTTP request sent, awaiting response... 200 OK
-    Length: 738 [application/x-yaml] 
-    Saving to: ‘tomcat.yaml.1’
+--2023-10-23 13:49:45--  https://oraclepartnersas.objectstorage.eu-amsterdam-1.oci.customer-oci.com/p/nMeT3CgGmIHPo0bFoRaVQmK6gGdY--cTpS5cvgZC38zhVEU6g4XCzPMk1sjE3uc0/n/oraclepartnersas/b/OracleStudentDay08Nov/o/tomcat.yaml
+Resolving oraclepartnersas.objectstorage.eu-amsterdam-1.oci.customer-oci.com (oraclepartnersas.objectstorage.eu-amsterdam-1.oci.customer-oci.com)... 134.70.104.1
+Connecting to oraclepartnersas.objectstorage.eu-amsterdam-1.oci.customer-oci.com (oraclepartnersas.objectstorage.eu-amsterdam-1.oci.customer-oci.com)|134.70.104.1|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 738 [application/x-yaml] 
+Saving to: ‘tomcat.yaml.1’
 
-    100%[==========================================================================================>] 738         --.-K/s   in 0s      
+100%[==========================================================================================>] 738         --.-K/s   in 0s      
 
-    2023-10-23 13:49:45 (86.4 MB/s) - ‘tomcat.yaml.' saved [738/738]
-    ```
+2023-10-23 13:49:45 (86.4 MB/s) - ‘tomcat.yaml.' saved [738/738]
+```
+
 The file has the following contents:
 
-    ``` text
-    $ <copy>cat tomcat.yaml</copy>
+``` 
+$ <copy>cat tomcat.yaml</copy>
 
-    apiVersion: apps/v1
-    kind: Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tomcat
+  labels:
+    app: tomcat
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tomcat
+  template:
     metadata:
-      name: tomcat
       labels:
         app: tomcat
     spec:
-      replicas: 3
-      selector:
-        matchLabels:
-          app: tomcat
-      template:
-        metadata:
-          labels:
-            app: tomcat
-        spec:
-          containers:
-            - name: tomcat
-              image: tomcat:9
-              ports:
-                - containerPort: 8080
-              volumeMounts:
-                - name: app-volume
-                  mountPath: /usr/local/tomcat/webapps/
-          volumes:
+      containers:
+        - name: tomcat
+          image: tomcat:9
+          ports:
+            - containerPort: 8080
+          volumeMounts:
             - name: app-volume
-              configMap:
-                name: app-bundle
-    ---
-    apiVersion: v1
-    kind: Service
-    metadata:
-      name: tomcat
-      labels:
-        app: tomcat
-    spec:
-      ports:
-      - port: 80
-        name: http
-        targetPort: 8080
-      selector:
-        app: tomcat
-      type: LoadBalancer
-      ```
+              mountPath: /usr/local/tomcat/webapps/
+      volumes:
+        - name: app-volume
+          configMap:
+            name: app-bundle
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tomcat
+  labels:
+    app: tomcat
+spec:
+  ports:
+  - port: 80
+    name: http
+    targetPort: 8080
+  selector:
+    app: tomcat
+  type: LoadBalancer
+```
     
-  This manifest contains the following objects and actions :
+This manifest contains the following objects and actions :
 
-  - A deployment object with the name `tomcat` and label `app: tomcat`. 
-  - The deployment has 3 replicas.
-  - The pods in the deployment have a single container - `tomcat:9`. Note that the manifest does not specify the architecture, making it valid across all architectures. Docker will pull the image that supports the appropriate architecture at runtime. 
-  - A *Volume* object is created from a *ConfigMap*, and mounted in to the container. This ConfigMap will be created later, and will contain the application.
-  - The manifest also contains a Service object, and exposes the deployment over a LoadBalancer. 
+- A deployment object with the name `tomcat` and label `app: tomcat`. 
+- The deployment has 3 replicas.
+- The pods in the deployment have a single container - `tomcat:9`. Note that the manifest does not specify the architecture, making it valid across all architectures. Docker will pull the image that supports the appropriate architecture at runtime. 
+- A *Volume* object is created from a *ConfigMap*, and mounted in to the container. This ConfigMap will be created later, and will contain the application.
+- The manifest also contains a Service object, and exposes the deployment over a LoadBalancer. 
 
 ### 1.2 Download a sample application
 
@@ -96,28 +97,28 @@ To have something to work with inside the Tomcat webserver, we can download a sa
 
 Copy and paste the following command and execute it in the cloud shell to download the sample application called `studentday.war`:
 
-    ``` text
-    <copy>wget -nv https://oraclepartnersas.objectstorage.eu-amsterdam-1.oci.customer-oci.com/p/8S67bB6MGxCiSdQ0uqY7NmAw5m8JAoX7UlmaIhMYIDCBaLkH9q9ELEyKupDRmH7P/n/oraclepartnersas/b/OracleStudentDay08Nov/o/studentday.war</copy>
-    ```
+``` text
+<copy>wget -nv https://oraclepartnersas.objectstorage.eu-amsterdam-1.oci.customer-oci.com/p/8S67bB6MGxCiSdQ0uqY7NmAw5m8JAoX7UlmaIhMYIDCBaLkH9q9ELEyKupDRmH7P/n/oraclepartnersas/b/OracleStudentDay08Nov/o/studentday.war</copy>
+```
 
 After downloading the file, we can create the so-called ConfigMap where we store additional instructions or configuration information, like the fact that we want to deploy our demo studentday.war to the generic tomcat installation. Be aware, this way of deploying an application is for convenience only, and should not be used in production.
 
 Copy the below command and execute it in the cloud shell:
 
-    ``` text
-    $ <copy>kubectl create configmap app-bundle --from-file studentday.war</copy
-    ```
+``` text
+$ <copy>kubectl create configmap app-bundle --from-file studentday.war</copy
+```
 
 ### 1.3 Check status before deployment
 
 At this moment, we have only build our Kubernetes cluster with 3 nodes. Nothing is deployed yet and no applications are being serviced from the K8s cluster. You can check the current status by copying the following command and pasting it in the cloud shell:
 
-    ``` text
-    $ <copy>kubectl get deploy,svc</copy>
-    
-    NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)             AGE
-    service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP,12250/TCP   1h
-    ```
+``` text
+$ <copy>kubectl get deploy,svc</copy>
+
+NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)             AGE
+service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP,12250/TCP   1h
+```
 
 The output indicates there are no deployments (= applications) running on this cluster. In the next step, we will deploy Tomcat to the cluster.    
     
@@ -129,38 +130,38 @@ We now have the manifest (tomcat.yaml) and the configMap it refers to (app-bundl
 
 Copy the below command (and paste it in the cloud shell) to start deploying the manifest to our Kubernetes cluster:
     
-      ``` text
-      $ <copy>kubectl apply -f tomcat.yaml</copy>
-      
-      deployment.apps/tomcat created
-      service/tomcat created
-      ```
+``` text
+$ <copy>kubectl apply -f tomcat.yaml</copy>
+
+deployment.apps/tomcat created
+service/tomcat created
+```
 
 ### 2.2 Check the deployment status
 
 It takes a few minutes to deploy Tomcat and the applications over the nodes in the cluster. You can check the status of the deployment by copying and pasting the following command in the cloud shell:
    
-      ``` text
-      $ <copy>kubectl get deploy,svc</copy>
+``` text
+$ <copy>kubectl get deploy,svc</copy>
 
-      NAME                     READY   UP-TO-DATE   AVAILABLE   AGE
-      deployment.apps/tomcat   2/2     2            2           9s
+NAME                     READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/tomcat   2/2     2            2           9s
 
-      NAME                 TYPE           CLUSTER-IP      EXTERNAL-IP       PORT(S)        AGE
-      service/kubernetes   ClusterIP      10.96.0.1       <none>            443/TCP        3d9h
-      service/tomcat       LoadBalancer   10.96.120.212   <pending>   80:32547/TCP         9s
-      ```
+NAME                 TYPE           CLUSTER-IP      EXTERNAL-IP       PORT(S)        AGE
+service/kubernetes   ClusterIP      10.96.0.1       <none>            443/TCP        3d9h
+service/tomcat       LoadBalancer   10.96.120.212   <pending>   80:32547/TCP         9s
+```
 
 While you see 'PENDING' in the external-ip for the service/tomcat, you cannot access the cluster as it is still being configured. Wait (and repeat the command) until you see an external IP adress appear:
 
-    ``` text
-    NAME                     READY   UP-TO-DATE   AVAILABLE   AGE
-    deployment.apps/tomcat   3/3     3            3           2m1s
+``` text
+NAME                     READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/tomcat   3/3     3            3           2m1s
 
-    NAME                 TYPE           CLUSTER-IP      EXTERNAL-IP       PORT(S)             AGE
-    service/kubernetes   ClusterIP      10.96.0.1       <none>            443/TCP,12250/TCP   3d
-    service/tomcat       LoadBalancer   10.96.122.152   158.101.205.139   80:31790/TCP        2m
-    ```
+NAME                 TYPE           CLUSTER-IP      EXTERNAL-IP       PORT(S)             AGE
+service/kubernetes   ClusterIP      10.96.0.1       <none>            443/TCP,12250/TCP   3d
+service/tomcat       LoadBalancer   10.96.122.152   158.101.205.139   80:31790/TCP        2m
+```
 
 This shows that Tomcat has been deployed successfully on our Arm based kubernetes cluster and is serving a Java web application. The deployment manifest we used is not tied to the architecture, and can be used for x86 as well as Arm based clusters. 
 
@@ -182,14 +183,14 @@ At this moment, the K8s cluster has 3 nodes or VMs at its disposal to run our To
 
 We can see these nodes by executing the following command on the cloud shell:
 
-    ``` text
-    $ <copy>kubectl get node</copy>
+``` text
+$ <copy>kubectl get node</copy>
     
-    NAME          STATUS   ROLES   AGE   VERSION
-    10.0.10.131   Ready    node    3d    v1.27.2
-    10.0.10.150   Ready    node    3d    v1.27.2
-    10.0.10.240   Ready    node    3d    v1.27.2
-    ```
+NAME          STATUS   ROLES   AGE   VERSION
+10.0.10.131   Ready    node    3d    v1.27.2
+10.0.10.150   Ready    node    3d    v1.27.2
+10.0.10.240   Ready    node    3d    v1.27.2
+```
 As you can see, all nodes are ready and servicing the cluster.
 
 ### 4.2 Check the current status in the OCI console
@@ -212,21 +213,21 @@ When you click on an instance, you have the option to turn off the compute insta
 
 Copy the following command and paste it into the cloud shell but **DO NOT EXECUTE IT YET**:
 
-    ``` text
-    $ <copy>watch -n5 "curl -sSf http://**your_ip_address**/studentday/ >/dev/null ; kubectl get node"</copy>
-    ```
+``` text
+$ <copy>watch -n5 "curl -sSf http://**your_ip_address**/studentday/ >/dev/null ; kubectl get node"</copy>
+```
     
 Before executing the statement, replace the section with **your_ip_address** with the IP address of your cluster, the one you used in your browser to check the application. If you have replaced it, a similar output should be visible:
 
-   ``` text
-   Every 5.0s: curl -sSf http://your_ip_address/studentday/ >/dev/null ; kubectl get node
-   Tue Oct 24 13:00:10 2023
+``` text
+Every 5.0s: curl -sSf http://your_ip_address/studentday/ >/dev/null ; kubectl get node
+Tue Oct 24 13:00:10 2023
 
-   NAME          STATUS  ROLES   AGE     VERSION
-   10.0.10.131   Ready   node    1h10m   v1.27.2
-   10.0.10.150   Ready   node    1h10m   v1.27.2
-   10.0.10.240   Ready   node    1h10m   v1.27.2
-   ```
+NAME          STATUS  ROLES   AGE     VERSION
+10.0.10.131   Ready   node    1h10m   v1.27.2
+10.0.10.150   Ready   node    1h10m   v1.27.2
+10.0.10.240   Ready   node    1h10m   v1.27.2
+```
    
 Here you see the status of the 3 nodes as the Kubernetes cluster reports them. We can now proceed to shutdown nodes and see the result.
 
@@ -240,15 +241,15 @@ In the OCI console screen, the logo with the 'I' will turn from green to red ind
 
 After a few seconds, you will see the status of one of your nodes changing from 'Ready' to 'NotReady':
 
-    ``` text
-    Every 5.0s: curl -sSf http://your_ip_address/studentday/ >/dev/null ; kubectl get node
-    Tue Oct 24 13:04:21 2023
+``` text
+Every 5.0s: curl -sSf http://your_ip_address/studentday/ >/dev/null ; kubectl get node
+Tue Oct 24 13:04:21 2023
 
-    NAME          STATUS     ROLES   AGE     VERSION
-    10.0.10.131   NotReady   node    3d23h   v1.27.2
-    10.0.10.150   Ready      node    3d23h   v1.27.2
-    10.0.10.240   Ready      node    3d23h   v1.27.2
-    ```
+NAME          STATUS     ROLES   AGE     VERSION
+10.0.10.131   NotReady   node    3d23h   v1.27.2
+10.0.10.150   Ready      node    3d23h   v1.27.2
+10.0.10.240   Ready      node    3d23h   v1.27.2
+```
 
 We do not see an error yet with the `curl` command, the command that checks whether or not there is an issue with the webservice. You can check that the service is still alive by refreshing your browser.
 
@@ -260,15 +261,15 @@ Since all is still running fine, we can continue to shutdown a second physical n
    
 This takes you back to the list of instances in your compartment. Select the second instance and stop this instance the same way you did with the previous node. After a while the following output is seen in your cloud shell:
 
-    ``` text
-    Every 5.0s: curl -sSf http://your_ip_address/studentday/ >/dev/null ; kubectl get node
-    Tue Oct 24 13:07:59 2023
+``` text
+Every 5.0s: curl -sSf http://your_ip_address/studentday/ >/dev/null ; kubectl get node
+Tue Oct 24 13:07:59 2023
 
-    NAME          STATUS     ROLES   AGE     VERSION
-    10.0.10.131   NotReady   node    3d23h   v1.27.2
-    10.0.10.150   NotReady   node    3d23h   v1.27.2
-    10.0.10.240   Ready      node    3d23h   v1.27.2
-    ```
+NAME          STATUS     ROLES   AGE     VERSION
+10.0.10.131   NotReady   node    3d23h   v1.27.2
+10.0.10.150   NotReady   node    3d23h   v1.27.2
+10.0.10.240   Ready      node    3d23h   v1.27.2
+```
    
 Still, we do not see any issues with our curl command which means our cluster is still servicing our application. You can check this, if you want to, by refreshing the browser where our demo application is running.
 
@@ -276,30 +277,30 @@ Still, we do not see any issues with our curl command which means our cluster is
 
 Go ahead and shutdown the third node of the cluster using the same steps as before. After a few seconds, you will see an error from the curl command in your output:
 
-    ``` text
-    Every 5.0s: curl -sSf http://your_ip_address/studentday/ >/dev/null ; kubectl get node
-    Tue Oct 24 13:10:23 2023
+``` text
+Every 5.0s: curl -sSf http://your_ip_address/studentday/ >/dev/null ; kubectl get node
+Tue Oct 24 13:10:23 2023
     
-    curl: (56) Recv failure: Connection reset by peer
-    NAME          STATUS     ROLES   AGE     VERSION
-    10.0.10.131   NotReady   node    3d23h   v1.27.2
-    10.0.10.150   NotReady   node    3d23h   v1.27.2
-    10.0.10.240   Ready      node    3d23h   v1.27.2
-    ```
+curl: (56) Recv failure: Connection reset by peer
+NAME          STATUS     ROLES   AGE     VERSION
+10.0.10.131   NotReady   node    3d23h   v1.27.2
+10.0.10.150   NotReady   node    3d23h   v1.27.2
+10.0.10.240   Ready      node    3d23h   v1.27.2
+```
 
 The error from Curl could even be quicker than the detection from Kubernetes that the third node is down too. In the end, you will see the following output:
 
 
-    ``` text
-    Every 5.0s: curl -sSf http://your_ip_address/studentday/ >/dev/null ; kubectl get node
-    Tue Oct 24 13:14:22 2023
+``` text
+Every 5.0s: curl -sSf http://your_ip_address/studentday/ >/dev/null ; kubectl get node
+Tue Oct 24 13:14:22 2023
     
-    curl: (56) Recv failure: Connection reset by peer
-    NAME          STATUS     ROLES   AGE     VERSION
-    10.0.10.131   NotReady   node    3d23h   v1.27.2
-    10.0.10.150   NotReady   node    3d23h   v1.27.2
-    10.0.10.240   NotReady   node    3d23h   v1.27.2
-    ```
+curl: (56) Recv failure: Connection reset by peer
+NAME          STATUS     ROLES   AGE     VERSION
+10.0.10.131   NotReady   node    3d23h   v1.27.2
+10.0.10.150   NotReady   node    3d23h   v1.27.2
+10.0.10.240   NotReady   node    3d23h   v1.27.2
+```
 
 Again, you can check in your browser for any issues. Very likely that you will get an error.
 
