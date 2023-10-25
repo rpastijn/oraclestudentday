@@ -34,7 +34,7 @@ You should see something similar to the following output:
     ```
 The file has the following contents:
 
-    ```
+    ``` text
     $ <copy>cat tomcat.yaml</copy>
 
     apiVersion: apps/v1
@@ -96,7 +96,7 @@ To have something to work with inside the Tomcat webserver, we can download a sa
 
 Copy and paste the following command and execute it in the cloud shell to download the sample application called `studentday.war`:
 
-    ```
+    ``` text
     <copy>wget -nv https://oraclepartnersas.objectstorage.eu-amsterdam-1.oci.customer-oci.com/p/8S67bB6MGxCiSdQ0uqY7NmAw5m8JAoX7UlmaIhMYIDCBaLkH9q9ELEyKupDRmH7P/n/oraclepartnersas/b/OracleStudentDay08Nov/o/studentday.war</copy>
     ```
 
@@ -104,7 +104,7 @@ After downloading the file, we can create the so-called ConfigMap where we store
 
 Copy the below command and execute it in the cloud shell:
 
-    ```
+    ``` text
     $ <copy>kubectl create configmap app-bundle --from-file studentday.war</copy
     ```
 
@@ -112,7 +112,7 @@ Copy the below command and execute it in the cloud shell:
 
 At this moment, we have only build our Kubernetes cluster with 3 nodes. Nothing is deployed yet and no applications are being serviced from the K8s cluster. You can check the current status by copying the following command and pasting it in the cloud shell:
 
-    ```
+    ``` text
     $ <copy>kubectl get deploy,svc</copy>
     
     NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)             AGE
@@ -129,7 +129,7 @@ We now have the manifest (tomcat.yaml) and the configMap it refers to (app-bundl
 
 Copy the below command (and paste it in the cloud shell) to start deploying the manifest to our Kubernetes cluster:
     
-      ```
+      ``` text
       $ <copy>kubectl apply -f tomcat.yaml</copy>
       
       deployment.apps/tomcat created
@@ -140,7 +140,7 @@ Copy the below command (and paste it in the cloud shell) to start deploying the 
 
 It takes a few minutes to deploy Tomcat and the applications over the nodes in the cluster. You can check the status of the deployment by copying and pasting the following command in the cloud shell:
    
-      ```
+      ``` text
       $ <copy>kubectl get deploy,svc</copy>
 
       NAME                     READY   UP-TO-DATE   AVAILABLE   AGE
@@ -153,7 +153,7 @@ It takes a few minutes to deploy Tomcat and the applications over the nodes in t
 
 While you see 'PENDING' in the external-ip for the service/tomcat, you cannot access the cluster as it is still being configured. Wait (and repeat the command) until you see an external IP adress appear:
 
-    ```
+    ``` text
     NAME                     READY   UP-TO-DATE   AVAILABLE   AGE
     deployment.apps/tomcat   3/3     3            3           2m1s
 
@@ -182,7 +182,7 @@ At this moment, the K8s cluster has 3 nodes or VMs at its disposal to run our To
 
 We can see these nodes by executing the following command on the cloud shell:
 
-    ```
+    ``` text
     $ <copy>kubectl get node</copy>
     
     NAME          STATUS   ROLES   AGE   VERSION
@@ -212,14 +212,15 @@ When you click on an instance, you have the option to turn off the compute insta
 
 Copy the following command and paste it into the cloud shell but **DO NOT EXECUTE IT YET**:
 
-    ```
+    ``` text
     $ <copy>watch -n5 "curl -sSf http://**your_ip_address**/studentday/ >/dev/null ; kubectl get node"</copy>
     ```
     
 Before executing the statement, replace the section with **your_ip_address** with the IP address of your cluster, the one you used in your browser to check the application. If you have replaced it, a similar output should be visible:
 
-   ```
+   ``` text
    Every 5.0s: curl -sSf http://your_ip_address/studentday/ >/dev/null ; kubectl get node
+   Tue Oct 24 13:00:10 2023
 
    NAME          STATUS  ROLES   AGE     VERSION
    10.0.10.131   Ready   node    1h10m   v1.27.2
@@ -239,9 +240,9 @@ In the OCI console screen, the logo with the 'I' will turn from green to red ind
 
 After a few seconds, you will see the status of one of your nodes changing from 'Ready' to 'NotReady':
 
-    ```
+    ``` text
     Every 5.0s: curl -sSf http://your_ip_address/studentday/ >/dev/null ; kubectl get node
-    Tue Oct 24 13:26:31 2023
+    Tue Oct 24 13:04:21 2023
 
     NAME          STATUS     ROLES   AGE     VERSION
     10.0.10.131   NotReady   node    3d23h   v1.27.2
@@ -259,9 +260,9 @@ Since all is still running fine, we can continue to shutdown a second physical n
    
 This takes you back to the list of instances in your compartment. Select the second instance and stop this instance the same way you did with the previous node. After a while the following output is seen in your cloud shell:
 
-    ```
+    ``` text
     Every 5.0s: curl -sSf http://your_ip_address/studentday/ >/dev/null ; kubectl get node
-    Tue Oct 24 13:26:31 2023
+    Tue Oct 24 13:07:59 2023
 
     NAME          STATUS     ROLES   AGE     VERSION
     10.0.10.131   NotReady   node    3d23h   v1.27.2
@@ -275,9 +276,9 @@ Still, we do not see any issues with our curl command which means our cluster is
 
 Go ahead and shutdown the third node of the cluster using the same steps as before. After a few seconds, you will see an error from the curl command in your output:
 
-    ```
+    ``` text
     Every 5.0s: curl -sSf http://your_ip_address/studentday/ >/dev/null ; kubectl get node
-    Tue Oct 24 13:26:31 2023
+    Tue Oct 24 13:10:23 2023
     
     curl: (56) Recv failure: Connection reset by peer
     NAME          STATUS     ROLES   AGE     VERSION
@@ -289,9 +290,9 @@ Go ahead and shutdown the third node of the cluster using the same steps as befo
 The error from Curl could even be quicker than the detection from Kubernetes that the third node is down too. In the end, you will see the following output:
 
 
-    ```
+    ``` text
     Every 5.0s: curl -sSf http://your_ip_address/studentday/ >/dev/null ; kubectl get node
-    Tue Oct 24 13:26:31 2023
+    Tue Oct 24 13:14:22 2023
     
     curl: (56) Recv failure: Connection reset by peer
     NAME          STATUS     ROLES   AGE     VERSION
