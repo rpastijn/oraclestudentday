@@ -7,8 +7,8 @@
       "filename": "../../intro/intro.md"
     },
     {
-      "title": "Login to OCI",
-      "filename": "https://oracle-livelabs.github.io/common/labs/cloud-login/pre-register-free-tier-account.md"
+      "title": "Lab 1: Login to Oracle Cloud Infrastructure",
+      "filename": "../../get-started/cloud-login-direct-oraclepartnersas.md"
     },
     {
       "title": "Lab 1: Create an Arm based Kubernetes cluster",
