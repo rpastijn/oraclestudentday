@@ -80,9 +80,9 @@ To see how easy it is to exfiltrate data from an unencrypted network, let's run 
 ![Connection top pdb1 using Oracle SQL Developer](./images/hack-lab1a-08.png "Connection top pdb1 using Oracle SQL Developer")
 First click Save, so the connection details are saved for later usage.
 
-Password of the **SYS** user:
-
-    ````
+    Password of the **SYS** user:
+    
+    ```` test
     Password: <copy>Oracle123</copy>
     ````
 
@@ -315,15 +315,19 @@ Imagine that you decide to refresh your development database every Monday from t
     - Of course, here, you exfiltrated only a single email address, but an attacker could exfiltrate any other dataset they wanted by using the same method
     - To be secured, you would need to implement, maintain, and monitor strong security solutions in the development environment
 
-3. Optionally you can also compare the data on the production (employeesearch_prod) and the development schema (employeesearch_dev) using Oracle SQL Developer (using the session you created in Task 1a). Run following 2 statements:
+3. Optionally you can also compare the data on the production (employeesearch\_prod) and the development schema (employeesearch\_dev) using Oracle SQL Developer (using the session you created in Task 1a). Run following 2 statements:
 
 - **Production schema** (the schema owner `EMPLOYEESEARCH_PROD`)
     ````
-    <copy>SELECT userid, lastname, creationdate, email, phonemobile, salary, ssn, corporate_card FROM employeesearch_prd.demo_hr_employees WHERE userid BETWEEN 73 AND 81 ORDER BY 1;</copy>
+    <copy>SELECT userid, lastname, creationdate, email, phonemobile, salary, ssn, corporate_card 
+    FROM employeesearch_prd.demo_hr_employees 
+    WHERE userid BETWEEN 73 AND 81 ORDER BY 1;</copy>
     ````
 - **Development schema** (the schema owner `EMPLOYEESEARCH_DEV`)
     ````
-    <copy>SELECT userid, lastname, creationdate, email, phonemobile, salary, ssn, corporate_card FROM employeesearch_dev.demo_hr_employees WHERE userid BETWEEN 73 AND 81 ORDER BY 1;</copy>
+    <copy>SELECT userid, lastname, creationdate, email, phonemobile, salary, ssn, corporate_card 
+    FROM employeesearch_dev.demo_hr_employees 
+    WHERE userid BETWEEN 73 AND 81 ORDER BY 1;</copy>
     ````
     
     **Note**:
@@ -363,7 +367,7 @@ Imagine that you decide to refresh your development database every Monday from t
 ![Connection top pdb2 using Oracle SQL Developer](./images/hack-lab1c-08.png "Connection top pdb2 using Oracle SQL Developer")
 First click Save, so the connection details are saved for later usage.
 
-Password of the **SYS** user:
+    Password of the **SYS** user:
 
     ````
     Password: <copy>Oracle123</copy>
