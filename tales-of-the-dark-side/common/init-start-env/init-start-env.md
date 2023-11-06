@@ -31,6 +31,10 @@ This lab assumes you have:
 2. On the web browser window on the right is a tab preloaded with *Enterprise Manager*, login with the credentials below to validate that it's operational. If the login page is not displayed on first login to the remote desktop, refresh to reload. It takes ~15 minutes for all processes to fully start.
 
     ```
+    URL: <copy>https://dbsec-lab:7803/em</copy>
+    ```
+
+    ```
     Username: <copy>sysman</copy>
     ```
 
@@ -174,7 +178,7 @@ If for any reason you want to login from a location that is external to your rem
     ```
 
     ```
-    URL: <copy>http://<Your Instance public_ip>:7803/em</copy>
+    URL: <copy>https://<Your Instance public_ip>:7803/em</copy>
     ```
 
     - *Note:* You may see an error on the browser while accessing the Web Console - “*Your connection is not private*” as shown below. Ignore and add the exception to proceed.
@@ -195,4 +199,4 @@ If for any reason you want to login from a location that is external to your rem
 ## Acknowledgements
 - **Author** - Rene Fontcha, LiveLabs Platform Lead, NA Technology
 - **Contributors** - Hakim Loumi
-- **Last Updated By/Date** - Marion Smith, Technical Program Manager, April 2022
+- **Last Updated By/Date** - Dries Moelans, Steven Bosman - October 2023

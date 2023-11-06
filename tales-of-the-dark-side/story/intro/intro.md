@@ -1,9 +1,7 @@
 # Introduction
 
 ## About this Workshop
-This workshop is a hands-on lab dedicated to the features and functionality of Oracle Database security to prevent, detect and mitigate the most common cyberattacks performed on Oracle Databases - for more details on each of the featured products, please refer to the following workshops:
-- [DB Security Basics](https://apexapps.oracle.com/pls/apex/dbpm/r/livelabs/view-workshop?wid=698)
-- [DB Security Advanced](https://apexapps.oracle.com/pls/apex/dbpm/r/livelabs/view-workshop?wid=726) labs.
+This workshop is a small hands-on lab dedicated to the features and functionality of Oracle Database security to prevent, detect and mitigate the most common cyberattacks performed on Oracle Databases.
 
 In this lab, we will use a ransomware attack to explore how attackers operate and what database features you should use to prevent, detect, and mitigate data exfiltration risks.
 
@@ -26,6 +24,8 @@ During this lab you will use the following resources:
   - Glassfish HR App
   - Audit Vault web console
   - OEM Cloud Control (DBA Web console)
+  - Oracle SQL Developer
+  - tcpdump
 
 Note that the Glassfish HR application is a fictitious employee management web application that points to an unsecured Oracle Database named PDB1.
 In our scenario, this database contains sensitive data that could be used by the attackers to extort a ransomware payment, or be sold on the dark web for profit.
