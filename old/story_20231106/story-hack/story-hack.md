@@ -29,7 +29,7 @@ Hackers constantly find new ways to get access to data. We cannot discuss all of
 - Weak passwords
 - Wrong database configuration settings
 - Usage of default ports
-- Operating System weaknesses (like root password, open ports, security holes, ...)
+- Operating System weaknessess (like root password, open ports, security holes, ...)
 
 Next to the technical part, companies also need to have the right procedures in place. Like when somebody leaves the company. In this case there should be an offboarding procedure to revoke the privileges of this employee and lock/delete his accounts. 
 
@@ -81,8 +81,8 @@ To see how easy it is to exfiltrate data from an unencrypted network, let's run 
 First click Save, so the connection details are saved for later usage.
 
     Password of the **SYS** user:
-
-    ````
+    
+    ```` test
     Password: <copy>Oracle123</copy>
     ````
 
@@ -315,15 +315,19 @@ Imagine that you decide to refresh your development database every Monday from t
     - Of course, here, you exfiltrated only a single email address, but an attacker could exfiltrate any other dataset they wanted by using the same method
     - To be secured, you would need to implement, maintain, and monitor strong security solutions in the development environment
 
-3. Optionally you can also compare the data on the production (employeesearch_prod) and the development schema (employeesearch_dev) using Oracle SQL Developer (using the session you created in Task 1a). Run following 2 statements:
+3. Optionally you can also compare the data on the production (employeesearch\_prod) and the development schema (employeesearch\_dev) using Oracle SQL Developer (using the session you created in Task 1a). Run following 2 statements:
 
 - **Production schema** (the schema owner `EMPLOYEESEARCH_PROD`)
     ````
-    <copy>SELECT userid, lastname, creationdate, email, phonemobile, salary, ssn, corporate_card FROM employeesearch_prod.demo_hr_employees WHERE userid BETWEEN 73 AND 81 ORDER BY 1;</copy>
+    <copy>SELECT userid, lastname, creationdate, email, phonemobile, salary, ssn, corporate_card 
+    FROM employeesearch_prd.demo_hr_employees 
+    WHERE userid BETWEEN 73 AND 81 ORDER BY 1;</copy>
     ````
 - **Development schema** (the schema owner `EMPLOYEESEARCH_DEV`)
     ````
-    <copy>SELECT userid, lastname, creationdate, email, phonemobile, salary, ssn, corporate_card FROM employeesearch_dev.demo_hr_employees WHERE userid BETWEEN 73 AND 81 ORDER BY 1;</copy>
+    <copy>SELECT userid, lastname, creationdate, email, phonemobile, salary, ssn, corporate_card 
+    FROM employeesearch_dev.demo_hr_employees 
+    WHERE userid BETWEEN 73 AND 81 ORDER BY 1;</copy>
     ````
     
     **Note**:
@@ -356,10 +360,10 @@ Imagine that you decide to refresh your development database every Monday from t
     ![Extract data from SECURED DEV datafile on PDB2](./images/hack-lab1c-07.png "Extract data from SECURED DEV datafile on PDB2")
 
     **Note**:
-    - **There's no result!** (you'll only see the results of the PROD table)
+    - **There's no result!**
     - Although the datafile is still readable as expected - remember, we didn't encrypt the development env - but now, because the data is masked in development, even if the attacker actually connects to the database, there's no longer sensitive data to be stolen!
 
-6. Optionally you can again compare the data on the production (`employeesearch_prod`) and the development schema (`employeesearch_dev`) using Oracle SQL Developer. First create a new connection to the **PDB2** database using Oracle SQL Developer. Click the green "+" sign in the left upper corner and provide following details:
+6. Optionally you can again compare the data on the production (employeesearch_prod) and the development schema (employeesearch_dev) using Oracle SQL Developer. First create a new connection to the **PDB2** database using Oracle SQL Developer. Click the green "+" sign in the left upper corner and provide following details:
 ![Connection top pdb2 using Oracle SQL Developer](./images/hack-lab1c-08.png "Connection top pdb2 using Oracle SQL Developer")
 First click Save, so the connection details are saved for later usage.
 
@@ -373,7 +377,7 @@ First click Save, so the connection details are saved for later usage.
    
 - **Production schema** (the schema owner `EMPLOYEESEARCH_PROD`)
     ````
-    <copy>SELECT userid, lastname, creationdate, email, phonemobile, salary, ssn, corporate_card FROM employeesearch_prod.demo_hr_employees WHERE userid BETWEEN 73 AND 81 ORDER BY 1;</copy>
+    <copy>SELECT userid, lastname, creationdate, email, phonemobile, salary, ssn, corporate_card FROM employeesearch_prd.demo_hr_employees WHERE userid BETWEEN 73 AND 81 ORDER BY 1;</copy>
     ````
 - **Development schema** (the schema owner `EMPLOYEESEARCH_DEV`)
     ````
